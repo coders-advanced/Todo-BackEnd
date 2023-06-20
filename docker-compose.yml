@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  coders-advanced-todo-database:
+    container_name: coders-advanced-todo-database
+    image: postgres
+    environment:
+      - POSTGRES_DB=TODO_DB
+      - POSTGRES_USER=TODO_USER
+      - POSTGRES_PASSWORD=TODO_PASSWORD
+
+    volumes:
+      - ".:/postgres/data"
+
+    ports:
+      - 5432:5432
