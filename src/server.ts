@@ -7,9 +7,11 @@ import router from "./Application/Routes/router";
 
 const app = express();
 
+app.use(express.json());
+
 const ymlDoc = fs.readFileSync(join(__dirname, "swagger", "doc.yml"), "utf8");
 const swaggerDoc = YAML.parse(ymlDoc);
-app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
 const PORT = process.env.PORT ?? 3000;
 
