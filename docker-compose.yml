@@ -1,6 +1,24 @@
 version: "3"
 
 services:
+  coders-advanced-todo-backend:
+    container_name: coders-advanced-todo-backend
+    command: bash -c "npx prisma migrate dev && npm run tsnd"
+    build:
+      context: "./"
+      dockerfile: Dockerfile
+    volumes:
+      - ".:/app"
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    networks:
+      - coders-advanced-todo-network
+    depends_on:
+      - coders-advanced-todo-database    
+    
+
   coders-advanced-todo-database:
     container_name: coders-advanced-todo-database
     image: postgres
@@ -8,9 +26,13 @@ services:
       - POSTGRES_DB=TODO_DB
       - POSTGRES_USER=TODO_USER
       - POSTGRES_PASSWORD=TODO_PASSWORD
-
     volumes:
       - ".:/postgres/data"
-
     ports:
       - 5432:5432
+    networks:
+      - coders-advanced-todo-network
+
+networks:
+  coders-advanced-todo-network:
+    driver: bridge
