@@ -2,6 +2,6 @@ import { CustomerErrorResponse } from "../../../../../utils/custom-error-respons
 
 export class CreateUserService {
   execute(user: any) {
-    throw new Error("Erro de teste");
+    throw new CustomerErrorResponse("Unauthorized error test", 401);
   }
 }
