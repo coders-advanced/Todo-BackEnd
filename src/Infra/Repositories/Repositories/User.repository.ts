@@ -51,8 +51,4 @@ export class UserPrismaRepository implements UserRepositoryContract {
       },
     });
   }
-
-
-
-
 }
