@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./build/server.js",
     "build": "tsc",
-    "dev": "tsx --watch ./src/server.ts"
+    "dev": "tsx --watch ./src/server.ts",
+    "tsnd": "tsnd --clear --transpile-only --exit-child --respawn ./src/server.ts"
   },
   "keywords": [],
   "author": "",
