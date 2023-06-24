@@ -1,0 +1,246 @@
+openapi: 3.0.3
+info:
+  title: Todo back-end application.
+  description: Description....
+  version: 1.0.0
+  
+servers:
+  - url: http://localhost:3000
+  
+tags:
+  - name: Auth
+    description: Handles authentication of users on the server
+
+paths:
+  /auth/signUp:
+    post:
+      tags:
+        - Auth
+      description: create account.
+      summary: create a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    name: 
+                      type: string
+                      default: jhon
+                    email:
+                      type: string
+                      default: jhon@gmail.com
+                    password:
+                      type: string
+                      minimum: 6
+                      default: mypass123
+      responses:
+        "201":
+          description: sucess in create account
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+                        default: jhon
+                      email:
+                        type: string
+                        default: jhon@gmail.com
+                  token:
+                    type: string
+                    default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+                    
+        "401":
+          description: if email is in use
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    default: email in used
+                  statusCode:
+                    type: number
+                    default: 401
+                
+                  
+        
+        "400":
+          description: if the parameters are invalid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ParametersError"
+        
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  
+  /auth/signIn:
+    post:
+      tags:
+        - Auth
+      description: login in a account.
+      summary: login in a account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      default: jhon@gmail.com
+                    password:
+                      type: string
+                      minimum: 6
+                      default: mypass123
+                      
+      responses:
+        "201":
+          description: sucess in create account
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        default: jhon
+                      email:
+                        type: string
+                        default: jhon@gmail.com
+                      username:
+                        type: string
+                        default: jhonPlay
+                  token:
+                    type: string
+                    default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+                    
+        "404":
+          description: if email is in use
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    default: user not found
+                  statusCode:
+                    type: number
+                    default: 404
+        "401":
+          description: if passwrod is invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    default: password is invalid
+                  statusCode:
+                    type: number
+                    default: 401
+                    
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  
+
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+      
+  schemas:
+    ParametersError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: first or only parameter error
+        statusCode:
+          description: http status code error
+          type: number
+          default: 400
+          
+    InternalServerError:
+        type: object
+        properties:
+          message:
+            type: string
+            description: if hear internal error on server
+            default: internal server error
+          statusCode:
+            description: http status code error
+            type: number
+            default: 500
+        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+          
